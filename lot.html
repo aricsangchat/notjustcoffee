@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Discover a Lot — Not Just Coffee</title>
+  <link rel="stylesheet" href="/assets/css/style.css"/>
+</head>
+<body class="mono">
+  <nav>
+    <a class="brand" href="/index.html"><span>NOT JUST COFFEE</span></a>
+    <div class="links">
+      <a href="/story.html">Story</a>
+      <a href="/shop.html">Shop</a>
+      <a href="/lot.html">Discover a Lot</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="card" style="max-width:720px;margin:30px auto;">
+      <h1>Enter Your Lot Name</h1>
+      <p class="sub">Scan the QR code from your package to reveal the full terroir in color.</p>
+
+      <form id="lotForm" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;">
+        <input id="lotInput" type="text" placeholder="AZU or REL" autocomplete="off"
+               style="flex:1;min-width:220px;padding:14px 14px;border-radius:14px;border:1px solid var(--line);background:#0f0f0f;color:var(--fg);font-size:14px;letter-spacing:.06em;text-transform:uppercase;">
+        <button class="btn primary" type="submit">Reveal</button>
+      </form>
+
+      <p class="fineprint">Available lots: <strong style="color:rgba(255,255,255,.92)">AZU</strong>, <strong style="color:rgba(255,255,255,.92)">REL</strong></p>
+    </div>
+  </main>
+
+  <footer class="footer container">
+    © Not Just Coffee • Contact: thesangchats@gmail.com
+  </footer>
+
+  <script src="/assets/js/lot.js"></script>
+</body>
+</html>
