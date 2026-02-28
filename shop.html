@@ -15,6 +15,23 @@
     </div>
   </nav>
 
+  <header class="hero">
+    <div class="hero-bg" style="background-image:url('assets/images/hero.jpg');"></div>
+    <div class="hero-inner container">
+      <div class="hero-card">
+        <div class="banner">
+          <strong style="color:rgba(255,255,255,.92);letter-spacing:.08em;">PRE-ORDER</strong>
+          <span>Shipping March–April • Thailand & USA</span>
+        </div>
+        <h1 style="margin-top:18px;">Pre-Order the First Release</h1>
+        <p style="max-width:60ch;">
+          Choose between two processes — AZU (Anaerobic Washed) and REL (Red Honey) — and reserve your first box or whole-bean bag.
+        </p>
+      </div>
+    </div>
+  </header>
+
+
   <main class="container">
     <div class="section-title">
       <h1>Shop</h1>
@@ -26,11 +43,30 @@
       <strong style="color:rgba(255,255,255,.92)">AZU</strong> or <strong style="color:rgba(255,255,255,.92)">REL</strong>.
     </p>
 
+    <div class="card" style="margin-top:18px;">
+      <h3>Understanding the Process</h3>
+      <h4>Washed Process</h4>
+      <p>
+        In the washed process, coffee fruit is removed before drying... Expect clarity, brightness, defined acidity.
+      </p>
+      <h4>Natural Process</h4>
+      <p>
+        In the natural process, the cherries dry with the bean... Expect fruit-forward sweetness and fuller body.
+      </p>
+    </div>
+
     <div class="grid two" style="margin-top:18px;">
       <div class="card product-card" id="drip">
         <div class="badge">PRE-ORDER</div>
+        <img src="assets/images/azu-1.jpg" alt="Drip Bag Set product photo" style="width:100%;border-radius:12px;display:block;margin:10px 0 12px;">
         <h3>Drip Bag Set (10 box)</h3>
         <p class="sub">Thailand & USA • Estimated ship: <strong style="color:rgba(255,255,255,.92)">March–April</strong></p>
+        <label for="drip-process"><strong style="color:rgba(255,255,255,.92)">Select Process</strong></label>
+        <select id="drip-process" name="process" style="margin-top:8px;margin-bottom:8px;max-width:220px;">
+          <option value="Washed">Washed</option>
+          <option value="Natural">Natural</option>
+        </select>
+        <p class="small" style="margin-top:0;">Your selected process will be used in the manual order email body.</p>
         <p class="price"><span class="thb">฿950</span><span class="sep">/</span><span class="usd">$32</span></p>
         <div class="actions">
           <a class="btn primary" href="#paypal" aria-disabled="true" title="Paste PayPal link/button later">PayPal (add link)</a>
@@ -44,8 +80,15 @@
 
       <div class="card product-card" id="bean">
         <div class="badge">PRE-ORDER</div>
+        <img src="assets/images/rel-1.jpg" alt="250g Whole Bean product photo" style="width:100%;border-radius:12px;display:block;margin:10px 0 12px;">
         <h3>250g Whole Bean</h3>
         <p class="sub">Thailand & USA • Estimated ship: <strong style="color:rgba(255,255,255,.92)">March–April</strong></p>
+        <label for="bean-process"><strong style="color:rgba(255,255,255,.92)">Select Process</strong></label>
+        <select id="bean-process" name="process" style="margin-top:8px;margin-bottom:8px;max-width:220px;">
+          <option value="Washed">Washed</option>
+          <option value="Natural">Natural</option>
+        </select>
+        <p class="small" style="margin-top:0;">Your selected process will be used in the manual order email body.</p>
         <p class="price"><span class="thb">฿650</span><span class="sep">/</span><span class="usd">$24</span></p>
         <div class="actions">
           <a class="btn primary" href="#paypal" aria-disabled="true" title="Paste PayPal link/button later">PayPal (add link)</a>
@@ -73,5 +116,36 @@
   <footer class="footer container">
     © Not Just Coffee • THB primary / USD available
   </footer>
+  <script>
+    document.querySelectorAll('.product-card').forEach((card) => {
+      const processSelect = card.querySelector('select[name="process"]');
+      const primaryButton = card.querySelector('.btn.primary');
+      const manualOrderLink = card.querySelector('.btn.ghost[href^="mailto:"]');
+      if (!processSelect || !primaryButton || !manualOrderLink) return;
+
+      const updateManualOrderHref = () => {
+        const selectedProcess = processSelect.value;
+        const currentHref = manualOrderLink.getAttribute('href') || '';
+        const [mailtoPart, queryString = ''] = currentHref.split('?');
+        const params = new URLSearchParams(queryString);
+        const productName = card.querySelector('h3')?.textContent?.trim() || 'Product';
+        const bodyLines = [
+          `Selected Process: ${selectedProcess}`,
+          `Product: ${productName}`,
+          'Qty: 1',
+          'Shipping Country: Thailand or USA',
+          'Name:',
+          'Address:',
+          'Phone:',
+          'Notes:'
+        ];
+
+        params.set('body', bodyLines.join('\n'));
+        manualOrderLink.setAttribute('href', `${mailtoPart}?${params.toString()}`);
+      };
+
+      primaryButton.addEventListener('click', updateManualOrderHref);
+    });
+  </script>
 </body>
 </html>
